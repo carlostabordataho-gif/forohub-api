@@ -1,83 +1,115 @@
-# Foro API - Proyecto Spring Boot
+# 🧩 FórumHub API
 
-Este proyecto es una **API REST** de un foro, desarrollada en **Spring Boot 3** con **Java 17** y **MySQL**, que permite gestionar tópicos (temas de discusión).
+API REST desarrollada con Spring Boot para la gestión de tópicos de un foro, incluyendo autenticación segura mediante JWT y control de acceso a los endpoints.
 
 ---
 
-## Tecnologías usadas
+## 📌 Descripción
+
+FórumHub es una API backend que permite:
+
+- Crear tópicos
+- Consultar tópicos
+- Actualizar tópicos
+- Eliminar tópicos
+- Autenticación de usuarios con JWT
+- Protección de endpoints con Spring Security
+
+Este proyecto fue desarrollado como parte de un challenge técnico enfocado en buenas prácticas backend, seguridad y arquitectura REST.
+
+---
+
+## 🚀 Tecnologías Utilizadas
 
 - Java 17
 - Spring Boot 3
-- Spring Data JPA
-- MySQL 8
-- Hibernate ORM
-- Flyway (para migraciones de base de datos)
-- Insomnia/Postman para pruebas de API
+- Spring Security
+- JWT (Auth0 Java JWT)
+- MySQL
+- JPA / Hibernate
+- Flyway (Migraciones de BD)
+- Maven
+- Insomnia (Testing API)
 
 ---
 
-## Funcionalidades de la API
+## 🔐 Autenticación
 
-### 1. Registrar un nuevo tópico
-- **Endpoint:** `POST /topicos`
-- **Descripción:** Permite crear un nuevo tópico con título, mensaje, autor y curso.
-- **Validaciones:** No permite campos vacíos ni duplicados (título + mensaje).
-- **Ejemplo de JSON:**
+La API usa autenticación basada en JWT.
+
+### 📍 Login
+
+**POST**
+http://localhost:8080/login
+
+
+### 📥 Body JSON
+
 ```json
 {
-  "titulo": "Mi segundo tópico",
-  "mensaje": "Contenido del nuevo tópico",
-  "autor": "Carlos Taborda",
-  "curso": "Spring Boot 3"
+  "username": "carlos",
+  "password": "123456"
 }
-2. Listar todos los tópicos
-Endpoint: GET /topicos
+📤 Respuesta
+Retorna un token JWT que debe enviarse en las siguientes solicitudes.
 
-Descripción: Devuelve todos los tópicos registrados en la base de datos.
+🪪 Uso del Token
+Agregar en headers:
 
-Ejemplo de respuesta:
+Authorization: Bearer TU_TOKEN_AQUI
+📚 Endpoints Principales
+📌 Tópicos
+Método	Endpoint	Descripción
+GET	/topicos	Listar tópicos
+POST	/topicos	Crear tópico
+PUT	/topicos/{id}	Actualizar tópico
+DELETE	/topicos/{id}	Eliminar tópico
+⚠ Requieren Token JWT.
 
-[
-  {
-    "id": 1,
-    "titulo": "Mi primer tópico",
-    "mensaje": "Este es el contenido del tópico",
-    "fechaCreacion": "2026-02-09T09:34:53",
-    "status": "NO_RESPONDIDO",
-    "autor": "Carlos Taborda",
-    "curso": "Spring Boot 3"
-  }
-]
-3. Detalle de un tópico
-Endpoint: GET /topicos/{id}
+🗄 Base de Datos
+MySQL
 
-Descripción: Devuelve los detalles de un tópico específico usando su ID.
+Configuración en:
 
-4. Actualizar un tópico
-Endpoint: PUT /topicos/{id}
-
-Descripción: Permite modificar un tópico existente (con validación de duplicados y campos obligatorios).
-
-5. Eliminar un tópico
-Endpoint: DELETE /topicos/{id}
-
-Descripción: Elimina un tópico específico de la base de datos.
-
-Cómo ejecutar el proyecto localmente
-Clonar el repositorio:
-
-git clone https://github.com/carlostabordataho-gif/forohub-api.git
-Configurar la base de datos en application.properties:
+application.properties
+Ejemplo:
 
 spring.datasource.url=jdbc:mysql://localhost:3306/forohub
 spring.datasource.username=root
-spring.datasource.password=root1234
-spring.jpa.hibernate.ddl-auto=update
-Ejecutar la aplicación:
+spring.datasource.password=******
+⚙ Configuración JWT
+jwt.secret=mi_secreto_super_seguro
+jwt.expiration=2
+🧠 Arquitectura
+controller
+service
+repository
+domain
+config (Security + JWT)
+🧪 Pruebas
+Se realizaron pruebas usando:
 
+Insomnia
+
+Requests con y sin token
+
+Validación de acceso protegido (403 sin token)
+
+📦 Cómo Ejecutar el Proyecto
+1️⃣ Clonar repositorio
+git clone https://github.com/carlostabordataho-gif/forohub-api.git
+2️⃣ Abrir en IntelliJ o VSCode
+3️⃣ Configurar base de datos
+4️⃣ Ejecutar proyecto
 mvn spring-boot:run
-Probar los endpoints con Insomnia o Postman usando http://localhost:8080/topicos.
+📈 Estado del Proyecto
+✅ CRUD Tópicos
+✅ Autenticación JWT
+✅ Seguridad Spring Security
+✅ Validación Token en Requests
+✅ API Stateless
 
-Autor
+👨‍💻 Autor
 Carlos Taborda
-
+Desarrollador Backend en formación
+Enfocado en Java, Spring Boot y desarrollo de APIs seguras.
