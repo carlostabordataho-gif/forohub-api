@@ -1,4 +1,7 @@
-package domain.topico;
+package com.forohub.forohub.domain.topico;
 
-public class StatusTopico {
+public enum StatusTopico {
+    NO_RESPONDIDO,
+    RESPONDIDO,
+    CERRADO
 }
